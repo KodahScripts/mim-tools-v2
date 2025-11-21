@@ -1,11 +1,8 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="text-3xl m-5">MIM Toolbox</div>
+  <RouterView />
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+</script>
