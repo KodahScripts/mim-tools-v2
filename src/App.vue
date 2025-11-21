@@ -1,8 +1,12 @@
 <template>
-  <div class="text-3xl m-5">MIM Toolbox</div>
+  <div class="text-3xl m-5">MIM Toolbox - {{ routeName }}</div>
   <RouterView />
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { computed } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
+
+const route = useRoute()
+const routeName = computed(() => route.name)
 </script>

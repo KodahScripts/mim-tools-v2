@@ -19,17 +19,17 @@ const links = ref([
   {
     label: 'VW Calculator',
     path: 'vw-calc',
-    icon: 'pi pi-calculator'
+    icon: 'pi pi-calculator',
   },
   {
     label: 'UTA Uploader',
     path: 'uta-upload',
-    icon: 'pi pi-dollar'
+    icon: 'pi pi-dollar',
   },
   {
     label: 'CC Uploader',
     path: 'cc-upload',
-    icon: 'pi pi-credit-card'
+    icon: 'pi pi-credit-card',
   },
 ])
 </script>
