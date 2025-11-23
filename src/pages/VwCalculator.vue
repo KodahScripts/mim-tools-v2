@@ -1,17 +1,21 @@
 <template>
-  <div class="flex justify-between ms-5 me-5">
-    <ToggleButton v-model="checked" class="w-48" onLabel="ID.4 / BUZZ" offLabel="General" />
-    <Button severity="danger"><i class="pi pi-trash"></i></Button>
+  <div class="flex justify-between p-10">
+    <ToggleButton v-model="modelChoice" class="w-48" onLabel="ID.4 / BUZZ" offLabel="General" />
+    <Button severity="danger" v-if="hasAnyData" @click="clear"><i class="pi pi-trash"></i></Button>
   </div>
   <div class="w-2/3 mx-auto">
-    <VwCalcGeneralForm v-if="!checked" />
+    <VwCalcGeneralForm v-if="!modelChoice" />
     <VwCalcOtherForm v-else />
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useVwCalcStore } from '@/stores/vw-calculator.ts'
 import VwCalcGeneralForm from '@/forms/VwCalcGeneralForm.vue'
 import VwCalcOtherForm from '@/forms/VwCalcOtherForm.vue'
 
-const checked = ref(false)
+const store = useVwCalcStore()
+const { modelChoice, hasAnyData } = storeToRefs(store)
+const { clear } = store
 </script>

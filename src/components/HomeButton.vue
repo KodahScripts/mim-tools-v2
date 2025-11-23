@@ -1,5 +1,5 @@
 <template>
-  <Button asChild v-slot="slotProps" class="font-bold">
+  <Button asChild v-slot="slotProps" variant="outlined">
     <RouterLink to="/" :class="slotProps.class">
       <div v-if="useLabel" class="flex justify-evenly items-center">
         <i class="pi pi-home" style="font-size: 1.5rem"></i>

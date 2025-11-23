@@ -2,25 +2,39 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useVwCalcStore = defineStore('vw-calc', () => {
-  const modelChoice = ref('gen')
-  const invoiceAmt = ref(0)
-  const msrpAmt = ref(0)
-  const baseMsrpAmt = ref(0)
-  const destinationAmt = ref(0)
-  const optionsAmt = ref(0)
-  const paintAmt = ref(0)
+  const modelChoice = ref(false)
+  const invoiceAmt = ref(null)
+  const msrpAmt = ref(null)
+  const baseMsrpAmt = ref(null)
+  const destinationAmt = ref(null)
+  const optionsAmt = ref(null)
+  const paintAmt = ref(null)
 
   const canCalculate = computed((): boolean => {
-    if (modelChoice.value === 'gen') {
+    if (!modelChoice.value) {
       if (
-        invoiceAmt.value != 0 &&
-        msrpAmt.value != 0 &&
-        baseMsrpAmt.value != 0 &&
-        destinationAmt.value != 0
+        invoiceAmt.value != null &&
+        msrpAmt.value != null &&
+        baseMsrpAmt.value != null &&
+        destinationAmt.value != null
       )
         return true
     } else {
-      if (baseMsrpAmt.value != 0 && optionsAmt.value != 0) return true
+      if (baseMsrpAmt.value != null && optionsAmt.value != null) return true
+    }
+    return false
+  })
+
+  const hasAnyData: boolean = computed(() => {
+    if (
+      invoiceAmt.value != null ||
+      msrpAmt.value != null ||
+      baseMsrpAmt.value != null ||
+      destinationAmt.value != null ||
+      baseMsrpAmt.value != null ||
+      optionsAmt.value != null
+    ) {
+      return true
     }
     return false
   })
@@ -28,7 +42,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   const getTotal = computed(() => {
     // MSRP - Destination
     if (canCalculate) {
-      if (msrpAmt.value != 0 && destinationAmt.value != 0) {
+      if (msrpAmt.value != null && destinationAmt.value != null) {
         return Number(Math.round(Number(msrpAmt.value) - Number(destinationAmt.value)).toFixed(2))
       }
     }
@@ -39,7 +53,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
     // Base MSRP * 4.8% || Base MSRP * 2%
     if (canCalculate) {
       if (modelChoice.value === 'other') {
-        if (baseMsrpAmt.value != 0) {
+        if (baseMsrpAmt.value != null) {
           return Number((baseMsrpAmt.value * 0.048).toFixed(2))
         }
       } else {
@@ -51,7 +65,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
 
   const getOptionsHB = computed(() => {
     // Options Amount * 2%
-    if (optionsAmt.value != 0) {
+    if (optionsAmt.value != null) {
       if (modelChoice.value === 'other') {
         if (optionsAmt.value > 0) {
           return Math.round(optionsAmt.value * 0.02).toFixed(2)
@@ -63,7 +77,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
 
   const getPaintHB = computed(() => {
     // Paint Amount * 7.8%
-    if (paintAmt.value != 0) {
+    if (paintAmt.value != null) {
       if (modelChoice.value === 'other') {
         if (paintAmt.value > 0) {
           return Math.round(paintAmt.value * 0.078).toFixed(2)
@@ -88,7 +102,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
 
   const getFPA = computed(() => {
     // Base MSRP * 1.5%
-    if (baseMsrpAmt.value != 0) {
+    if (baseMsrpAmt.value != null) {
       return Math.round(baseMsrpAmt.value * 0.015).toFixed(2)
     }
     return 0.0
@@ -96,7 +110,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
 
   const getIDM = computed(() => {
     // Base MSRP * 2% || Base MSRP * 0.8%
-    if (baseMsrpAmt.value != 0) {
+    if (baseMsrpAmt.value != null) {
       if (modelChoice.value === 'other') {
         return Math.round(baseMsrpAmt.value * 0.02).toFixed(2)
       } else {
@@ -109,7 +123,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   const getTrans = computed(() => {
     // Base MSRP * 1.35%
     // if value is under 50 (any hundred amount) round down, else round up next dollar amount
-    if (baseMsrpAmt.value != 0) {
+    if (baseMsrpAmt.value != null) {
       const value = (baseMsrpAmt.value * 0.0135).toFixed(2)
       let val = Math.floor(Math.round(Number(value)))
       const dollarVal = val % 100
@@ -121,20 +135,19 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
 
   const getVPB = computed(() => {
     // Base MSRP * 1.9%
-    if (baseMsrpAmt.value != 0) {
+    if (baseMsrpAmt.value != null) {
       return Math.round(baseMsrpAmt.value * 0.019).toFixed(2)
     }
     return 0.0
   })
 
   function clear() {
-    modelChoice.value = 'gen'
-    invoiceAmt.value = 0
-    msrpAmt.value = 0
-    baseMsrpAmt.value = 0
-    destinationAmt.value = 0
-    optionsAmt.value = 0
-    paintAmt.value = 0
+    invoiceAmt.value = null
+    msrpAmt.value = null
+    baseMsrpAmt.value = null
+    destinationAmt.value = null
+    optionsAmt.value = null
+    paintAmt.value = null
   }
 
   return {
@@ -155,6 +168,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
     getTrans,
     getVPB,
     canCalculate,
+    hasAnyData,
     clear,
   }
 })

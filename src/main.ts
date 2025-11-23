@@ -12,6 +12,7 @@ import Button from 'primevue/button'
 import ToggleButton from 'primevue/togglebutton'
 import FloatLabel from 'primevue/floatlabel'
 import InputNumber from 'primevue/inputnumber'
+import Message from 'primevue/message'
 
 // CSS Imports
 import './assets/styles.css'
@@ -30,5 +31,6 @@ app.component('Button', Button)
 app.component('ToggleButton', ToggleButton)
 app.component('FloatLabel', FloatLabel)
 app.component('InputNumber', InputNumber)
+app.component('Message', Message)
 
 app.mount('#app')
