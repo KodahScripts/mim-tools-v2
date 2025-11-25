@@ -1,11 +1,38 @@
-const UPLOADHEADER = [
-  'Reference #',
-  'Receipt #',
-  'G/L Account',
-  'Amount',
-  'Control #',
-  'Description',
-]
+enum STORE {
+  BMWT = 'BMWT',
+  WCN = 'WCN'
+}
+
+enum UPLOADHEADER {
+  REFERENCE = 'Reference #',
+  RECEIPT = 'Receipt #',
+  ACCOUNT = 'G/L Account',
+  AMOUNT = 'Amount',
+  CONTROL = 'Control #',
+  DESCRIPTION = 'Description'
+}
+
+const ACCT: Account = {
+  BMWT: {
+    vari: '3304',
+    fixed: '3225',
+    fee: '3331C',
+  },
+  WCN: {
+    vari: '3040',
+    fixed: '2250',
+    fee: '3324',
+  },
+}
+
+// const UPLOADHEADER = [
+//   'Reference #',
+//   'Receipt #',
+//   'G/L Account',
+//   'Amount',
+//   'Control #',
+//   'Description',
+// ]
 
 const COLUMN = {
   UTA: {
@@ -95,4 +122,4 @@ interface CreditDepositRow {
 }
 
 export type { Accounts, Account, UTADepositRow, UploadRow, UploadSheet, Merchant }
-export { UPLOADHEADER, COLUMN }
+export { UPLOADHEADER, COLUMN, ACCT, STORE }

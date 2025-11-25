@@ -167,6 +167,10 @@ export const useUtaStore = defineStore('uta', () => {
     writeFile(deleteBook, `${selectedStore.value}_${today}.xlsx`)
   }
 
+  function clearData() {
+    UtaRawData.value = null
+  }
+
   return {
     UtaRawData,
     AllSheets,
@@ -180,5 +184,6 @@ export const useUtaStore = defineStore('uta', () => {
     removeRow,
     removeSheet,
     buildSheet,
+    clearData
   }
 })

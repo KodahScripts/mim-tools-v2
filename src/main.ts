@@ -13,6 +13,7 @@ import ToggleButton from 'primevue/togglebutton'
 import FloatLabel from 'primevue/floatlabel'
 import InputNumber from 'primevue/inputnumber'
 import Message from 'primevue/message'
+import FileUpload from 'primevue/fileupload'
 
 // CSS Imports
 import './assets/styles.css'
@@ -21,7 +22,7 @@ import 'primeicons/primeicons.css'
 const app = createApp(App)
 app.use(PrimeVue, {
   theme: {
-    preset: Aura,
+    preset: Aura
   },
 })
 app.use(createPinia())
@@ -32,5 +33,6 @@ app.component('ToggleButton', ToggleButton)
 app.component('FloatLabel', FloatLabel)
 app.component('InputNumber', InputNumber)
 app.component('Message', Message)
+app.component('FileUpload', FileUpload)
 
 app.mount('#app')

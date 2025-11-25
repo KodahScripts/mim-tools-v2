@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, type ComputedRef } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useVwCalcStore = defineStore('vw-calc', () => {
@@ -25,7 +25,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
     return false
   })
 
-  const hasAnyData: boolean = computed(() => {
+  const hasAnyData: ComputedRef<boolean> = computed(() => {
     if (
       invoiceAmt.value != null ||
       msrpAmt.value != null ||
@@ -52,7 +52,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   const getHoldback = computed(() => {
     // Base MSRP * 4.8% || Base MSRP * 2%
     if (canCalculate) {
-      if (modelChoice.value === 'other') {
+      if (modelChoice.value) {
         if (baseMsrpAmt.value != null) {
           return Number((baseMsrpAmt.value * 0.048).toFixed(2))
         }
@@ -66,7 +66,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   const getOptionsHB = computed(() => {
     // Options Amount * 2%
     if (optionsAmt.value != null) {
-      if (modelChoice.value === 'other') {
+      if (modelChoice.value) {
         if (optionsAmt.value > 0) {
           return Math.round(optionsAmt.value * 0.02).toFixed(2)
         }
@@ -78,7 +78,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   const getPaintHB = computed(() => {
     // Paint Amount * 7.8%
     if (paintAmt.value != null) {
-      if (modelChoice.value === 'other') {
+      if (modelChoice.value) {
         if (paintAmt.value > 0) {
           return Math.round(paintAmt.value * 0.078).toFixed(2)
         }
@@ -88,7 +88,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   })
 
   const getTotalHB = computed(() => {
-    if (modelChoice.value === 'other') {
+    if (modelChoice.value) {
       const hb = Number(getHoldback.value)
       const opt = Number(getOptionsHB.value)
       const pnt = Number(getPaintHB.value)
@@ -111,7 +111,7 @@ export const useVwCalcStore = defineStore('vw-calc', () => {
   const getIDM = computed(() => {
     // Base MSRP * 2% || Base MSRP * 0.8%
     if (baseMsrpAmt.value != null) {
-      if (modelChoice.value === 'other') {
+      if (modelChoice.value) {
         return Math.round(baseMsrpAmt.value * 0.02).toFixed(2)
       } else {
         return Math.round(baseMsrpAmt.value * 0.008).toFixed(2)
