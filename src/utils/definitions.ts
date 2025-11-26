@@ -1,6 +1,6 @@
 enum STORE {
   BMWT = 'BMWT',
-  WCN = 'WCN'
+  WCN = 'WCN',
 }
 
 enum UPLOADHEADER {
@@ -9,7 +9,7 @@ enum UPLOADHEADER {
   ACCOUNT = 'G/L Account',
   AMOUNT = 'Amount',
   CONTROL = 'Control #',
-  DESCRIPTION = 'Description'
+  DESCRIPTION = 'Description',
 }
 
 const ACCT: Account = {

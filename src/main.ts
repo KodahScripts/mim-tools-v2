@@ -10,6 +10,7 @@ import Aura from '@primeuix/themes/aura'
 // PrimeVue Components Imports
 import Button from 'primevue/button'
 import ToggleButton from 'primevue/togglebutton'
+import SelectButton from 'primevue/selectbutton'
 import FloatLabel from 'primevue/floatlabel'
 import InputNumber from 'primevue/inputnumber'
 import Message from 'primevue/message'
@@ -22,7 +23,7 @@ import 'primeicons/primeicons.css'
 const app = createApp(App)
 app.use(PrimeVue, {
   theme: {
-    preset: Aura
+    preset: Aura,
   },
 })
 app.use(createPinia())
@@ -30,6 +31,7 @@ app.use(router)
 
 app.component('Button', Button)
 app.component('ToggleButton', ToggleButton)
+app.component('SelectButton', SelectButton)
 app.component('FloatLabel', FloatLabel)
 app.component('InputNumber', InputNumber)
 app.component('Message', Message)

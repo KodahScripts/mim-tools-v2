@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 
 import { ACCT } from '../utils/definitions'
 
-
 export const useGlobalStore = defineStore('global', () => {
   const selectedStore = ref('BMWT')
 

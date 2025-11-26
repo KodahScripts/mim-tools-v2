@@ -184,6 +184,6 @@ export const useUtaStore = defineStore('uta', () => {
     removeRow,
     removeSheet,
     buildSheet,
-    clearData
+    clearData,
   }
 })
