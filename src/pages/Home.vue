@@ -1,7 +1,13 @@
 <template>
   <div class="text-xl text-center m-5">Select a Tool</div>
   <div class="flex justify-evenly">
-    <Button v-for="(link, index) in links" :key="`link-${index}`" asChild v-slot="slotProps">
+    <Button
+      v-for="(link, index) in links"
+      :key="`link-${index}`"
+      asChild
+      v-slot="slotProps"
+      variant="outlined"
+    >
       <RouterLink :to="link.path" :class="slotProps.class">
         <div class="flex justify-evenly items-center font-bold">
           <i :class="link.icon" style="font-size: 1.5rem"></i>

@@ -9,12 +9,12 @@ import Aura from '@primeuix/themes/aura'
 
 // PrimeVue Components Imports
 import Button from 'primevue/button'
-import ToggleButton from 'primevue/togglebutton'
 import SelectButton from 'primevue/selectbutton'
 import FloatLabel from 'primevue/floatlabel'
 import InputNumber from 'primevue/inputnumber'
 import Message from 'primevue/message'
 import FileUpload from 'primevue/fileupload'
+import DataTable from 'primevue/datatable'
 
 // CSS Imports
 import './assets/styles.css'
@@ -30,11 +30,11 @@ app.use(createPinia())
 app.use(router)
 
 app.component('Button', Button)
-app.component('ToggleButton', ToggleButton)
 app.component('SelectButton', SelectButton)
 app.component('FloatLabel', FloatLabel)
 app.component('InputNumber', InputNumber)
 app.component('Message', Message)
 app.component('FileUpload', FileUpload)
+app.component('DataTable', DataTable)
 
 app.mount('#app')

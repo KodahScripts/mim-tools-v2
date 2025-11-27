@@ -5,7 +5,9 @@
     accept=".xlsx, .xls"
     @select="onUpload"
     :auto="true"
-    chooseLabel="Browse"
+    :chooseLabel="label"
+    chooseIcon="pi pi-upload"
+    class="p-button-outlined"
   />
 </template>
 
@@ -13,6 +15,13 @@
 import type { FileUploadSelectEvent } from 'primevue'
 import { ref, type Ref } from 'vue'
 import { read, utils } from 'xlsx'
+
+defineProps({
+  label: {
+    type: String,
+    default: 'Browse...',
+  },
+})
 
 const file: Ref<File | null> = ref(null)
 const emit = defineEmits(['fileData'])

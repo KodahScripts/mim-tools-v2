@@ -8,3 +8,7 @@ export function convertDate(excelDateValue: number) {
   const year = date_info.getFullYear().toString().slice(-2)
   return `${month}${day}${year}`
 }
+
+export const formatCurrency = (value) => {
+  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+}

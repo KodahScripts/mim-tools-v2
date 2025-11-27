@@ -1,6 +1,6 @@
 <template>
   <div class="m-10">
-    <UploadXlButton @fileData="handleUpload" />
+    <UploadXlButton label="Upload UTA" @fileData="handleUpload" />
   </div>
 </template>
 
@@ -24,7 +24,7 @@ function handleUpload(data: Array<string | number | boolean>[]) {
   UtaRawData.value = data.slice(1).map((row, index) => {
     const date = convertDate(Number(row[COLUMN.UTA.DATE]))
     const merch = getMerchantType(String(row[COLUMN.UTA.MERCHANT]))
-    const flag = { delete: false }
+    const flag = { delete: false, found: false }
     return {
       uid: `UTA-${index}`,
       date,
