@@ -2,7 +2,7 @@ import { ref, computed, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { utils, writeFile } from 'xlsx'
 import { useGlobalStore } from './global'
-import type { UTADepositRow, UploadSheet } from '../utils/definitions'
+import type { UTADepositRow, DepositRows } from '@/utils'
 
 export const useUtaStore = defineStore('uta', () => {
   const globalStore = useGlobalStore()
@@ -12,13 +12,13 @@ export const useUtaStore = defineStore('uta', () => {
   const UtaRawData: Ref<UTADepositRow[] | null> = ref(null)
 
   const AllSheets = computed(() => {
-    const sheets: UploadSheet = {}
-    const sortedSheets: UploadSheet = {}
+    const sheets: DepositRows = {}
+    const sortedSheets: DepositRows = {}
     if (UtaRawData.value) {
       UtaRawData.value.forEach((row) => {
-        let refStr = `UTA${row.date}${row.merch.code}`
-        if (row.resp === 'DENIED') refStr += '-DEN'
-        if (row.resp === 'REFERRAL') refStr += '-REF'
+        let refStr = `UTA${row.date}${row.merchant.code}`
+        if (row.response === 'DENIED') refStr += '-DEN'
+        if (row.response === 'REFERRAL') refStr += '-REF'
         if (row.flag.delete) refStr += '-DEL'
         if (sheets[refStr]) {
           sheets[refStr]?.push(row)

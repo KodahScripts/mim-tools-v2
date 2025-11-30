@@ -1,13 +1,13 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-import { ACCT } from '../utils/definitions'
+import { ACCOUNT, MERCHANT_ID, MERCHANT_CODE } from '@/utils'
 
 export const useGlobalStore = defineStore('global', () => {
   const selectedStore = ref('BMWT')
 
   const accounts = computed(() => {
-    return ACCT[selectedStore.value]
+    return ACCOUNT[selectedStore.value]
   })
 
   function changeStore(storeAbbr: string) {
@@ -15,14 +15,18 @@ export const useGlobalStore = defineStore('global', () => {
   }
 
   function getMerchantType(merchantCode: string) {
-    const id = merchantCode.slice(-2)
-    if (id === '00') {
-      return { code: 'V', acct: accounts.value?.vari }
+    const id = String(merchantCode.slice(-2))
+    switch (id) {
+      case MERCHANT_ID.VARIABLE:
+        return { code: MERCHANT_CODE.VARIABLE, account: accounts.value.variable }
+        break
+      case MERCHANT_ID.FIXED:
+        return { code: MERCHANT_CODE.FIXED, account: accounts.value.fixed }
+        break
+      default:
+        return { code: MERCHANT_CODE.HOLD, account: accounts.value.variable }
+        break
     }
-    if (id === '02') {
-      return { code: 'F', acct: accounts.value?.fixed }
-    }
-    return { code: 'H', acct: accounts.value?.vari }
   }
 
   function createReceiptNumber(numberOfDigits: number) {

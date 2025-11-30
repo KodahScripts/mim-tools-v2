@@ -1,4 +1,6 @@
-export function convertDate(excelDateValue: number) {
+import { MERCHANT_CODE } from './enums.ts'
+
+export const convertDate = (excelDateValue: number) => {
   var utc_days = Math.floor(excelDateValue - 25569)
   var utc_value = utc_days * 86400
   var date_info = new Date(utc_value * 1000)

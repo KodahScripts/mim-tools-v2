@@ -1,6 +1,6 @@
 <template>
   <div class="m-10">
-    <UploadXlButton label="Upload UTA" @fileData="handleUpload" />
+    <UploadXlButton label="UTA Upload" @fileData="handleUpload" />
   </div>
 </template>
 
@@ -9,8 +9,7 @@ import { storeToRefs } from 'pinia'
 import { useUtaStore } from '@/stores/uta'
 import { useGlobalStore } from '@/stores/global'
 import UploadXlButton from '@/components/UploadXlButton.vue'
-import { convertDate } from '@/utils/xlFunctions'
-import { COLUMN } from '@/utils/definitions'
+import { convertDate, UTA_COLUMN } from '@/utils'
 
 const utaStore = useUtaStore()
 const { UtaRawData, AllSheets } = storeToRefs(utaStore)
@@ -22,20 +21,20 @@ const { getMerchantType } = globalStore
 
 function handleUpload(data: Array<string | number | boolean>[]) {
   UtaRawData.value = data.slice(1).map((row, index) => {
-    const date = convertDate(Number(row[COLUMN.UTA.DATE]))
-    const merch = getMerchantType(String(row[COLUMN.UTA.MERCHANT]))
+    const date = convertDate(Number(row[UTA_COLUMN.DATE]))
+    const merchant = getMerchantType(String(row[UTA_COLUMN.MERCHANT]))
     const flag = { delete: false, found: false }
     return {
       uid: `UTA-${index}`,
       date,
-      chk: String(row[COLUMN.UTA.CHECK_NUMBER]),
-      total: Number(row[COLUMN.UTA.TOTAL_AMOUNT]).toFixed(2),
-      merch,
-      resp: String(row[COLUMN.UTA.RESPONSE]),
-      ctrl:
-        String(row[COLUMN.UTA.CONTROL]).length > 6 && !String(row[COLUMN.UTA.CONTROL]).includes('-')
-          ? String(row[COLUMN.UTA.CONTROL]).slice(-6)
-          : String(row[COLUMN.UTA.CONTROL]),
+      check_number: String(row[UTA_COLUMN.CHECK_NUMBER]),
+      total: Number(row[UTA_COLUMN.TOTAL_AMOUNT]).toFixed(2),
+      merchant,
+      response: String(row[UTA_COLUMN.RESPONSE]),
+      control:
+        String(row[UTA_COLUMN.CONTROL]).length > 6 && !String(row[UTA_COLUMN.CONTROL]).includes('-')
+          ? String(row[UTA_COLUMN.CONTROL]).slice(-6)
+          : String(row[UTA_COLUMN.CONTROL]),
       flag,
     }
   })
