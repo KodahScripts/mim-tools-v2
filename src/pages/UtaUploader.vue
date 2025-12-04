@@ -1,15 +1,31 @@
 <template>
   <div class="m-10">
-    <UploadXlButton label="UTA Upload" @fileData="handleUpload" />
+    <Button severity="danger" v-if="hasData" @click="UtaRawData = null">
+      <i class="pi pi-trash"></i>
+    </Button>
+    <UploadXlButton v-else label="UTA Upload" @fileData="handleUpload" />
+
+    <Accordion value="0" class="m-5">
+        <AccordionPanel v-for="(sheetName, index) in sheetNames" :key="sheetName" :value="index">
+            <AccordionHeader>{{ sheetName }}</AccordionHeader>
+            <AccordionContent>
+                <div class="m-0" v-for="row in getSheet(sheetName)" :key="row.uid">
+                  {{ row.control }} - {{ row.total }}
+                </div>
+            </AccordionContent>
+        </AccordionPanel>
+    </Accordion>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUtaStore } from '@/stores/uta'
 import { useGlobalStore } from '@/stores/global'
 import UploadXlButton from '@/components/UploadXlButton.vue'
-import { convertDate, UTA_COLUMN } from '@/utils'
+import DepositGroup from '@/templates/DepositGroup.vue'
+import { convertDate, UTA_COLUMN, type UTADepositRow } from '@/utils'
 
 const utaStore = useUtaStore()
 const { UtaRawData, AllSheets } = storeToRefs(utaStore)
@@ -38,5 +54,18 @@ function handleUpload(data: Array<string | number | boolean>[]) {
       flag,
     }
   })
+}
+
+const hasData = computed(() => {
+  return AllSheets.value === undefined || Object.keys(AllSheets).length === 0 ? false : true
+})
+
+const sheetNames = computed(() => {
+  return Object.keys(AllSheets.value)
+})
+
+function getSheet(sheetName: string):UTADepositRow[] | null {
+  if(AllSheets.value[sheetName]) return AllSheets.value[sheetName]
+  return null
 }
 </script>

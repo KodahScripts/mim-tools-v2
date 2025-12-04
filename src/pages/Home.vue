@@ -37,5 +37,10 @@ const links = ref([
     path: 'cc-upload',
     icon: 'pi pi-credit-card',
   },
+  {
+    label: 'Employee Match',
+    path: 'emp-match',
+    icon: 'pi pi-user',
+  },
 ])
 </script>

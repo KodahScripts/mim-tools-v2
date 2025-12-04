@@ -43,14 +43,14 @@ export const useUtaStore = defineStore('uta', () => {
   function changeCtrl(uid: string, newCtrl: string) {
     const row = getRow(uid)
     if (row) {
-      row.ctrl = newCtrl
+      row.control = newCtrl
     }
   }
 
   function changeAcct(uid: string, newAcct: string) {
     const row = getRow(uid)
     if (row) {
-      row.merch.acct = newAcct
+      row.merchant.account = newAcct
     }
   }
 
@@ -133,9 +133,9 @@ export const useUtaStore = defineStore('uta', () => {
           return {
             reference: ref,
             receipt,
-            glAccount: row.merch.acct,
+            glAccount: row.merchant.account,
             amount: row.total,
-            control: row.ctrl,
+            control: row.control,
             description: '',
           }
         })
@@ -146,16 +146,16 @@ export const useUtaStore = defineStore('uta', () => {
     })
 
     Object.keys(deleteSheets).forEach((sheetName: string) => {
-      if (deleteSheets[sheetName]) {
-        const receipt = createReceiptNumber(5)
+      if (sheetName in deleteSheets) {
+        const receipt = createReceiptNumber(8)
         const data = deleteSheets[sheetName].map((row: UTADepositRow) => {
           const ref = sheetName.includes('-') ? sheetName : `${sheetName}-1`
           return {
             reference: ref,
             receipt,
-            glAccount: row.merch.acct,
+            glAccount: row.merchant.account,
             amount: row.total,
-            control: row.ctrl,
+            control: row.control,
             description: '',
           }
         })

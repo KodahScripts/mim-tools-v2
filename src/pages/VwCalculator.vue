@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useVwCalcStore } from '@/stores/vw-calculator.ts'
 import VwCalcGeneralForm from '@/forms/VwCalcGeneralForm.vue'

@@ -3,6 +3,7 @@ import Home from '../pages/Home.vue'
 import VwCalculator from '../pages/VwCalculator.vue'
 import UtaUploader from '../pages/UtaUploader.vue'
 import CcUploader from '../pages/CcUploader.vue'
+import EmpMatch from '../pages/EmpMatch.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/cc-upload',
       name: 'CC Uploader',
       component: CcUploader,
+    },
+    {
+      path: '/emp-match',
+      name: 'Employee Match',
+      component: EmpMatch,
     },
   ],
 })

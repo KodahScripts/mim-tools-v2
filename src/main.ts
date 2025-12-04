@@ -16,6 +16,12 @@ import Message from 'primevue/message'
 import FileUpload from 'primevue/fileupload'
 import DataTable from 'primevue/datatable'
 
+import Accordion from 'primevue/accordion';
+import AccordionPanel from 'primevue/accordionpanel';
+import AccordionHeader from 'primevue/accordionheader';
+import AccordionContent from 'primevue/accordioncontent';
+
+
 // CSS Imports
 import './assets/styles.css'
 import 'primeicons/primeicons.css'
@@ -36,5 +42,9 @@ app.component('InputNumber', InputNumber)
 app.component('Message', Message)
 app.component('FileUpload', FileUpload)
 app.component('DataTable', DataTable)
+app.component('Accordion', Accordion)
+app.component('AccordionPanel', AccordionPanel)
+app.component('AccordionHeader', AccordionHeader)
+app.component('AccordionContent', AccordionContent)
 
 app.mount('#app')
