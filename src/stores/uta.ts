@@ -30,7 +30,9 @@ export const useUtaStore = defineStore('uta', () => {
       const keys = Object.keys(sheets).sort()
 
       keys.forEach((key) => {
-        sortedSheets[key] = sheets[key]
+        if (sheets[key] != undefined) {
+          sortedSheets[key] = sheets[key]
+        }
       })
     }
     return sortedSheets
@@ -111,6 +113,20 @@ export const useUtaStore = defineStore('uta', () => {
     })
   }
 
+  function foundRow(uid: string) {
+    const row = getRow(uid)
+    if (row) {
+      row.flag.found = true
+    }
+  }
+
+  function loseRow(uid: string) {
+    const row = getRow(uid)
+    if (row) {
+      row.flag.found = false
+    }
+  }
+
   function buildSheet() {
     const sheets = AllSheets.value
     const deleteSheets: UTADepositRow[] = []
@@ -183,6 +199,8 @@ export const useUtaStore = defineStore('uta', () => {
     undoDeleteRow,
     removeRow,
     removeSheet,
+    foundRow,
+    loseRow,
     buildSheet,
     clearData,
   }

@@ -5,7 +5,10 @@ import { ACCOUNT, MERCHANT_ID, MERCHANT_CODE } from '@/utils'
 
 export const useGlobalStore = defineStore('global', () => {
   const selectedStore = ref('BMWT')
-
+  const storeOptions = ref([
+    { name: 'BMWT', value: 'BMWT' },
+    { name: 'WCN', value: 'WCN' },
+  ])
   const accounts = computed(() => {
     return ACCOUNT[selectedStore.value]
   })
@@ -37,5 +40,12 @@ export const useGlobalStore = defineStore('global', () => {
     return Number(numberArr.join(''))
   }
 
-  return { selectedStore, accounts, changeStore, getMerchantType, createReceiptNumber }
+  return {
+    selectedStore,
+    storeOptions,
+    accounts,
+    changeStore,
+    getMerchantType,
+    createReceiptNumber,
+  }
 })

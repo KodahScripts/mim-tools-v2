@@ -15,12 +15,11 @@ import InputNumber from 'primevue/inputnumber'
 import Message from 'primevue/message'
 import FileUpload from 'primevue/fileupload'
 import DataTable from 'primevue/datatable'
-
-import Accordion from 'primevue/accordion';
-import AccordionPanel from 'primevue/accordionpanel';
-import AccordionHeader from 'primevue/accordionheader';
-import AccordionContent from 'primevue/accordioncontent';
-
+import Checkbox from 'primevue/checkbox'
+import Accordion from 'primevue/accordion'
+import AccordionPanel from 'primevue/accordionpanel'
+import AccordionHeader from 'primevue/accordionheader'
+import AccordionContent from 'primevue/accordioncontent'
 
 // CSS Imports
 import './assets/styles.css'
@@ -42,6 +41,7 @@ app.component('InputNumber', InputNumber)
 app.component('Message', Message)
 app.component('FileUpload', FileUpload)
 app.component('DataTable', DataTable)
+app.component('Checkbox', Checkbox)
 app.component('Accordion', Accordion)
 app.component('AccordionPanel', AccordionPanel)
 app.component('AccordionHeader', AccordionHeader)

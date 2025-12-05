@@ -10,15 +10,15 @@ export type Merchant = 'code' | 'account'
 
 export interface DepositRow {
   uid: string
-  amount: number
+  amount: string
   brand: string
   chain: string
   check_number: string
   control: string
   date: string
   response: string
-  surcharge: number
-  total: number
+  surcharge: string
+  total: string
   merchant: Record<Merchant, number | string>
   flag: Record<Flags, boolean>
 }
@@ -28,7 +28,7 @@ export type UTADepositRow = Pick<
   'uid' | 'check_number' | 'control' | 'date' | 'flag' | 'merchant' | 'response' | 'total'
 >
 
-export type CC_DepositRow = Pick<
+export type CCDepositRow = Pick<
   DepositRow,
   | 'uid'
   | 'amount'
@@ -43,7 +43,7 @@ export type CC_DepositRow = Pick<
 >
 
 export type DepositRows = {
-  [name: string]: UTADepositRow[] | CC_DepositRow[]
+  [name: string]: UTADepositRow[] | CCDepositRow[]
 }
 
 export type UploadRow = {
