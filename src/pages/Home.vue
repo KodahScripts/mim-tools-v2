@@ -42,5 +42,10 @@ const links = ref([
     path: 'emp-match',
     icon: 'pi pi-user',
   },
+  {
+    label: 'Sales Bonus',
+    path: 'sls-bns',
+    icon: 'pi pi-dollar',
+  },
 ])
 </script>

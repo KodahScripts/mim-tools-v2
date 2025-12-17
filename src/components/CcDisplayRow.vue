@@ -10,9 +10,9 @@
     ]"
   >
     <Checkbox v-model="rowData.flag.found" binary />
-    <div>{{ rowData.check_number }}</div>
-    <div>{{ rowData.total }}</div>
-    <div>{{ rowData.merchant.account }}</div>
+    <div>{{ rowData.brand }}</div>
+    <div>{{ rowData.amount }}</div>
+    <div>{{ rowData.surcharge }}</div>
     <div>{{ rowData.control }}</div>
     <Button severity="danger" @click="deleteRow(rowData.uid)">
       <i class="pi pi-trash"></i>
@@ -20,12 +20,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { UTADepositRow } from '@/utils'
-import { useUtaStore } from '@/stores/uta'
+import type { CCDepositRow } from '@/utils'
+import { useCcStore } from '@/stores/credit-card'
 
 defineProps<{
-  rowData: UTADepositRow
+  rowData: CCDepositRow
 }>()
-const store = useUtaStore()
+const store = useCcStore()
 const { deleteRow } = store
 </script>

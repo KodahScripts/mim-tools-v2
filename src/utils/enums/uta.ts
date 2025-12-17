@@ -1,0 +1,8 @@
+export enum COLUMN {
+  DATE = 1,
+  CHECK_NUMBER = 4,
+  TOTAL_AMOUNT = 6,
+  MERCHANT = 7,
+  RESPONSE = 15,
+  CONTROL = 21,
+}

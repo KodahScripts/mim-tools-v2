@@ -1,12 +1,6 @@
 <template>
   <div class="m-5">
-    <div class="flex justify-between">
-      <SelectButton
-        v-model="selectedStore"
-        :options="storeOptions"
-        optionLabel="name"
-        optionValue="value"
-      />
+    <div>
       <Button
         severity="danger"
         variant="outlined"
@@ -17,7 +11,7 @@
       <UploadXlButton v-else label="UTA Upload" @fileData="handleUpload" />
     </div>
 
-    <Accordion value="0" class="m-5">
+    <Accordion v-if="AllSheets" value="0" class="m-5">
       <AccordionPanel v-for="(sheetName, index) in sheetNames" :key="sheetName" :value="index">
         <AccordionHeader>
           <div class="flex justify-between w-full">
@@ -30,14 +24,15 @@
           </div>
         </AccordionHeader>
         <AccordionContent>
-          <div class="flex justify-around text-center">
+          <div class="flex justify-evenly text-center">
             <div>FOUND</div>
             <div>CHECK</div>
             <div>AMOUNT</div>
             <div>ACCOUNT</div>
             <div>CONTROL</div>
+            <div></div>
           </div>
-          <div class="mt-1" v-for="row in getSheet(sheetName)" :key="row.uid">
+          <div class="mt-1" v-for="(row, index) in getSheet(sheetName)" :key="`uta-row-${index}`">
             <UtaDisplayRow :rowData="row" />
           </div>
         </AccordionContent>
@@ -53,43 +48,48 @@ import { useUtaStore } from '@/stores/uta'
 import { useGlobalStore } from '@/stores/global'
 import UploadXlButton from '@/components/UploadXlButton.vue'
 import UtaDisplayRow from '@/components/UtaDisplayRow.vue'
-import { convertDate, UTA_COLUMN, type UTADepositRow } from '@/utils/index'
+import { convertExcelDateNumber } from '@/utils/functions'
+import type { UTADepositRow } from '@/utils/types'
+import { UCOL } from '@/utils/enums'
 
 const utaStore = useUtaStore()
 const { UtaRawData, AllSheets } = storeToRefs(utaStore)
 const { clearData, deleteSheet } = utaStore
 
 const globalStore = useGlobalStore()
-const { selectedStore, storeOptions } = storeToRefs(globalStore)
 const { getMerchantType } = globalStore
 
 function handleUpload(data: Array<string | number | boolean>[]) {
   UtaRawData.value = data.slice(1).map((row, index) => {
-    const date = String(convertDate(Number(row[UTA_COLUMN.DATE])))
-    const merchant = getMerchantType(String(row[UTA_COLUMN.MERCHANT]))
+    const date = String(convertExcelDateNumber(Number(row[UCOL.DATE])))
+    const merchant = getMerchantType(String(row[UCOL.MERCHANT]))
     const flag = { delete: false, found: false }
     return {
       uid: `UTA-${index}`,
       date,
-      check_number: String(row[UTA_COLUMN.CHECK_NUMBER]),
-      total: Number(row[UTA_COLUMN.TOTAL_AMOUNT]).toFixed(2),
+      check_number: String(row[UCOL.CHECK_NUMBER]),
+      total: Number(row[UCOL.TOTAL_AMOUNT]),
       merchant,
-      response: String(row[UTA_COLUMN.RESPONSE]),
+      response: String(row[UCOL.RESPONSE]),
       control:
-        String(row[UTA_COLUMN.CONTROL]).length > 6 && !String(row[UTA_COLUMN.CONTROL]).includes('-')
-          ? String(row[UTA_COLUMN.CONTROL]).slice(-6)
-          : String(row[UTA_COLUMN.CONTROL]),
+        String(row[UCOL.CONTROL]).length > 6 && !String(row[UCOL.CONTROL]).includes('-')
+          ? String(row[UCOL.CONTROL]).slice(-6)
+          : String(row[UCOL.CONTROL]),
       flag,
     }
   })
 }
 
 const sheetNames = computed(() => {
-  return Object.keys(AllSheets.value)
+  if (AllSheets.value) {
+    return Object.keys(AllSheets.value)
+  }
 })
 
 function getSheet(sheetName: string): UTADepositRow[] | null {
-  if (AllSheets.value[sheetName]) return AllSheets.value[sheetName]
+  if (AllSheets.value) {
+    if (AllSheets.value[sheetName]) return AllSheets.value[sheetName]
+  }
   return null
 }
 </script>
