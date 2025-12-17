@@ -20,7 +20,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { UTADepositRow } from '@/utils'
+import type { UTADepositRow } from '@/utils/types'
 import { useUtaStore } from '@/stores/uta'
 
 defineProps<{

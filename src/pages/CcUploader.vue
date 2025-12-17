@@ -48,7 +48,7 @@ import { useCcStore } from '@/stores/credit-card'
 import { useGlobalStore } from '@/stores/global'
 import UploadXlButton from '@/components/UploadXlButton.vue'
 import CcDisplayRow from '@/components/CcDisplayRow.vue'
-import { convertExcelDateNumber, cleanAmount } from '@/utils/functions'
+import { cleanAmount } from '@/utils/functions'
 import { CCOL, BRAND } from '@/utils/enums'
 import type { CCDepositRow, RawExcelData } from '@/utils/types'
 

@@ -20,7 +20,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { CCDepositRow } from '@/utils'
+import type { CCDepositRow } from '@/utils/types'
 import { useCcStore } from '@/stores/credit-card'
 
 defineProps<{
